@@ -9,13 +9,13 @@ const (
 	indexItems = "items"
 )
 
-func (i *Item) Save() *errors.RestErr {
-	 result, err := elasticsearch.Client.Index(indexItems, i)
+func (i *Item) Save() errors.RestErr {
+	result, err := elasticsearch.Client.Index(indexItems, i)
 
-	 if err != nil {
-	 	return errors.NewInternalServerError("error trying to save item", errors.NewError("database error"))
-	 }
+	if err != nil {
+		return errors.NewInternalServerError("error trying to save item", errors.NewError("database error"))
+	}
 
-	 i.Id = result.Id
-	 return nil
+	i.Id = result.Id
+	return nil
 }

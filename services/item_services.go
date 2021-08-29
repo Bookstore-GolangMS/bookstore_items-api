@@ -10,14 +10,14 @@ var (
 )
 
 type ItemsServiceInterface interface {
-	Create(items.Item) (*items.Item, *errors.RestErr)
-	Get(string) (*items.Item, *errors.RestErr)
+	Create(items.Item) (*items.Item, errors.RestErr)
+	Get(string) (*items.Item, errors.RestErr)
 }
 
 type itemsService struct {
 }
 
-func (s *itemsService) Create(itemRequest items.Item) (*items.Item, *errors.RestErr) {
+func (s *itemsService) Create(itemRequest items.Item) (*items.Item, errors.RestErr) {
 	if err := itemRequest.Save(); err != nil {
 		return nil, err
 	}
@@ -25,6 +25,6 @@ func (s *itemsService) Create(itemRequest items.Item) (*items.Item, *errors.Rest
 	return &itemRequest, nil
 }
 
-func (s *itemsService) Get(string) (*items.Item, *errors.RestErr) {
+func (s *itemsService) Get(string) (*items.Item, errors.RestErr) {
 	return nil, nil
 }

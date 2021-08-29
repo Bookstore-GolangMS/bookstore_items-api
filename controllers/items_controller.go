@@ -25,18 +25,13 @@ type itensController struct {
 
 func (i *itensController) Create(w http.ResponseWriter, r *http.Request) {
 	if err := oauth.AuthenticateRequest(r); err != nil {
-		httputils.RespondJsonError(w, &errors.RestErr{
-			Message: err.Message,
-			Code:    err.Status,
-			Error:   err.Error,
-		})
-		return
+		// httputils.RespondJsonError(w, errors.NewRestError(err.Message, err.Status, err.Error, []))
+		// return
 	}
 
 	sellerId := oauth.GetCallerId(r)
 	if sellerId == 0 {
-		httputils.RespondJsonError(w, errors.NewUnauthorizedError(
-			"unable to retrieve user information from given access_token"))
+		httputils.RespondJsonError(w, errors.NewUnauthorizedError("unable to retrieve user information from given access_token"))
 		return
 	}
 
